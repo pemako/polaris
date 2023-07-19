@@ -18,6 +18,7 @@
 package main
 
 import (
+	_ "github.com/polaris-contrib/store-postgresql"
 	_ "github.com/polarismesh/polaris/apiserver/eurekaserver"
 	_ "github.com/polarismesh/polaris/apiserver/grpcserver/config"
 	_ "github.com/polarismesh/polaris/apiserver/grpcserver/discover"

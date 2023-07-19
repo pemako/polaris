@@ -28,7 +28,7 @@ var (
 	cryptoManager     *defaultCryptoManager
 )
 
-// Crypto Crypto interface
+// Crypto interface
 type Crypto interface {
 	Plugin
 	GenerateKey() ([]byte, error)
@@ -36,7 +36,7 @@ type Crypto interface {
 	Decrypt(cryptotext string, key []byte) (string, error)
 }
 
-// GetCrypto get the crypto plugin
+// GetCryptoManager GetCrypto get the crypto plugin
 func GetCryptoManager() CryptoManager {
 	if cryptoManager != nil {
 		return cryptoManager

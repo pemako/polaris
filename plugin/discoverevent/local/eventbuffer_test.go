@@ -47,7 +47,7 @@ func TestEventBufferTest(t *testing.T) {
 		actualCnt += event.CreateTime.Unix()
 	}
 
-	assert.Equal(t, expectCnt, actualCnt, "cnt must be equla")
+	assert.Equal(t, expectCnt, actualCnt, "cnt must be equal")
 
 	bufferHolder.Reset()
 
@@ -68,5 +68,5 @@ func TestEventBufferTest(t *testing.T) {
 		actualCnt += event.CreateTime.Unix()
 	}
 
-	assert.Equal(t, expectCnt, actualCnt, "cnt must be equla")
+	assert.Equal(t, expectCnt, actualCnt, "cnt must be equal")
 }

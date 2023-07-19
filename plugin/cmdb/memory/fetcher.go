@@ -21,7 +21,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/polarismesh/polaris/common/utils"
@@ -29,7 +29,7 @@ import (
 
 const (
 	FetchSuccess    = 200000 // 成功
-	FetchForbiden   = 401000 // 无权限
+	FetchForbidden  = 401000 // 无权限
 	FetchBadRequest = 400001 // 分页参数错误
 	FetchException  = 500000 // 服务端错误
 )
@@ -38,7 +38,7 @@ const (
 type IPs struct {
 	Hosts   map[string]IP
 	Mask    []IP
-	Backoff *IP
+	BackOff *IP
 }
 
 // Fetcher fetcher by get cmdb data
@@ -80,9 +80,9 @@ func (f *fetcher) GetIPs() ([]IPInfo, IPs, error) {
 			continue
 		}
 
-		if item.Type == Backoff {
+		if item.Type == BackOff {
 			data, _ := NewIP(item)
-			ret.Backoff = &data
+			ret.BackOff = &data
 		}
 	}
 
@@ -127,7 +127,7 @@ func (f *fetcher) getFromRemote() ([]IPInfo, error) {
 
 		defer resp.Body.Close()
 
-		data, err := ioutil.ReadAll(resp.Body)
+		data, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return nil, err
 		}
@@ -140,10 +140,10 @@ func (f *fetcher) getFromRemote() ([]IPInfo, error) {
 			return nil, errors.New(queryResp.Info)
 		}
 		if total == 0 {
-			total = int(queryResp.Total)
+			total = queryResp.Total
 			values = make([]IPInfo, 0, total)
 		}
-		curQuery += int(queryResp.Size)
+		curQuery += queryResp.Size
 		values = append(values, queryResp.Data...)
 		first = false
 	}

@@ -104,9 +104,9 @@ func (m *Memory) GetLocation(host string) (*model.Location, error) {
 				break
 			}
 		}
-		if !find && ips.Backoff != nil {
+		if !find && ips.BackOff != nil {
 			find = true
-			target = *ips.Backoff
+			target = *ips.BackOff
 		}
 	}
 

@@ -33,7 +33,7 @@ type IPType string
 const (
 	Host    IPType = "host"
 	Mask    IPType = "mask"
-	Backoff IPType = "backoff"
+	BackOff IPType = "backoff"
 )
 
 // Request request cmdb data
@@ -116,7 +116,7 @@ func (p IP) Match(ip string) bool {
 		return strings.Compare(p.IP, ip) == 0
 	case Mask:
 		return p.ipNet.Contains(net.ParseIP(ip))
-	case Backoff:
+	case BackOff:
 		return true
 	default:
 		return false

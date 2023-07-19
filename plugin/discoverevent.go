@@ -26,7 +26,7 @@ import (
 
 var (
 	discoverEventOnce sync.Once
-	_discoverChannel  DiscoverChannel
+	discoverChannel   DiscoverChannel
 )
 
 // DiscoverChannel is used to receive discover events from the agent
@@ -38,8 +38,8 @@ type DiscoverChannel interface {
 
 // GetDiscoverEvent Get service discovery event plug -in
 func GetDiscoverEvent() DiscoverChannel {
-	if _discoverChannel != nil {
-		return _discoverChannel
+	if discoverChannel != nil {
+		return discoverChannel
 	}
 
 	discoverEventOnce.Do(func() {
@@ -56,14 +56,14 @@ func GetDiscoverEvent() DiscoverChannel {
 			})
 		}
 
-		_discoverChannel = newCompositeDiscoverChannel(entries)
-		if err := _discoverChannel.Initialize(nil); err != nil {
+		discoverChannel = newCompositeDiscoverChannel(entries)
+		if err := discoverChannel.Initialize(nil); err != nil {
 			log.Errorf("DiscoverChannel plugin init err: %s", err.Error())
 			os.Exit(-1)
 		}
 	})
 
-	return _discoverChannel
+	return discoverChannel
 }
 
 // newCompositeDiscoverChannel creates Composite DiscoverChannel

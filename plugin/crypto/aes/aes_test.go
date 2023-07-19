@@ -31,7 +31,7 @@ func Test_AESCrypto_GenerateKey(t *testing.T) {
 		err    error
 	}{
 		{
-			name:   "genrate aes key",
+			name:   "generate aes key",
 			keyLen: 16,
 		},
 	}

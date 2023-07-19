@@ -391,8 +391,8 @@ healthcheck:
   # Health check plugin list, currently supports heartBeatMemory/heartBeatredis/heartBeatLeader. 
   # since the three belong to the same type of health check plugin, only one can be enabled to use one
   checkers:
-    - name: heartbeatMemory
-    # - name: heartbeatLeader  # Heartbeat examination plugin based on the Leader-Follower mechanism
+    # - name: heartbeatMemory
+    - name: heartbeatLeader  # Heartbeat examination plugin based on the Leader-Follower mechanism
     #   option:
     #     # Heartbeat Record MAP number of shards
     #     soltNum: 128
@@ -489,22 +489,23 @@ maintain:
 # Storage configuration
 store:
   # Standalone file storage plugin
-  name: boltdbStore
+#  name: boltdbStore
+#  option:
+#    path: ./polaris.bolt
+  # Database storage plugin
+  name: postgresqlStore
   option:
-    path: ./polaris.bolt
-  ## Database storage plugin
-  # name: defaultStore
-  # option:
-  #   master:
-  #     dbType: mysql
-  #     dbName: polaris_server
-  #     dbUser: ##DB_USER##
-  #     dbPwd: ##DB_PWD##
-  #     dbAddr: ##DB_ADDR##
-  #     maxOpenConns: 300
-  #     maxIdleConns: 50
-  #     connMaxLifetime: 300 # Unit second
-  #     txIsolationLevel: 2 #LevelReadCommitted
+    master:
+      dbType: "postgres"
+      dbName: "polaris_server"
+      dbUser: "mako"
+      dbPwd: "makotest"
+      dbAddr: "127.0.0.1"
+      dbPort: "5432"
+      maxOpenConns: 300
+      maxIdleConns: 50
+      connMaxLifetime: 300 # Unit second
+      txIsolationLevel: 2 #LevelReadCommitted
 # polaris-server plugin settings
 plugin:
   crypto:
